@@ -41,6 +41,14 @@ describe('JsxLexer', () => {
       done()
     })
 
+    it('skips variables in `defaults` prop', (done) => {
+      const Lexer = new JsxLexer()
+      const content =
+        '<Trans defaults={variable}>should be ignored</Trans>'
+      assert.deepEqual(Lexer.extract(content), [])
+      done()
+    })
+
     it('extracts keys from user-defined key attributes from closing tags', (done) => {
       const Lexer = new JsxLexer({ attr: 'myIntlKey' })
       const content = '<Trans myIntlKey="first" count={count}>Yo</Trans>'
